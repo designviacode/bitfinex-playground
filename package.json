@@ -4,13 +4,19 @@
   "private": true,
   "dependencies": {
     "apisauce": "^1.0.0",
+    "classnames": "^2.2.6",
     "node-sass": "^4.9.4",
+    "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-helmet": "^5.2.0",
+    "react-redux": "^5.0.7",
     "react-scripts": "2.0.5",
     "recharts": "^1.3.4",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "socket.io-client": "^2.1.1",
+    "websocket": "^1.0.28",
     "ws": "^6.1.0"
   },
   "scripts": {
@@ -27,5 +33,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "babel-plugin-root-import": "^6.1.0"
+  }
 }
