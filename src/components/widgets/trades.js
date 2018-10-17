@@ -64,9 +64,9 @@ class Trades extends React.Component {
             {!props.trades.isLoading &&
               props.trades &&
               props.trades.results.length > 0 &&
-              props.trades.results.map((trade, index) =>
-                this.renderRow(trade, index)
-              )}
+              props.trades.results
+                .reverse()
+                .map((trade, index) => this.renderRow(trade, index))}
           </tbody>
         </table>
 

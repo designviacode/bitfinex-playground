@@ -58,9 +58,9 @@ class OrderBook extends React.Component {
             {!props.orderBook.isLoading &&
               props.orderBook &&
               props.orderBook.results.length > 0 &&
-              props.orderBook.results.map((order, index) =>
-                this.renderRow(order, index)
-              )}
+              props.orderBook.results
+                .reverse()
+                .map((order, index) => this.renderRow(order, index))}
           </tbody>
         </table>
 

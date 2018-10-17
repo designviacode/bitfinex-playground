@@ -39,8 +39,6 @@ class App extends React.Component {
   }
 
   initSocket() {
-    let self = this;
-
     let socketConnected = new Promise((resolve, reject) => {
       let socketConnection = new W3CWebSocket(
         "wss://api.bitfinex.com/ws/2",
@@ -66,68 +64,24 @@ class App extends React.Component {
   }
 
   initiateSocketListeners(connection) {
-    if (connection) {
-      this.requestTrades(connection);
-    }
+    // if (connection) {
+    this.requestTrades();
+    this.requestTicker();
+    this.requestOrderBook();
+    // }
   }
 
-  requestTrades(connection) {
+  newConnection() {
+    return new W3CWebSocket("wss://api.bitfinex.com/ws/2", "echo-protocol");
+  }
+
+  handleConnectionResponse(connection, msg, cb) {
     if (connection) {
       connection.onerror = () => {
         console.log("Connection Error");
       };
       connection.onopen = () => {
         console.log("WebSocket connection Connected");
-
-        let msgTrades = JSON.stringify({
-          event: "subscribe",
-          channel: "trades",
-          pair: "BTCUSD"
-        });
-        let msgTicker = JSON.stringify({
-          event: "subscribe",
-          channel: "ticker",
-          pair: "tBTCUSD"
-        });
-        let msgOrderBook = JSON.stringify({
-          event: "subscribe",
-          channel: "book",
-          pair: "tBTCUSD"
-        });
-
-        connection.send(msgTrades);
-      };
-
-      connection.onclose = () => {
-        console.log("WebSocket connection Closed");
-      };
-
-      connection.onmessage = e => {
-        if (typeof e.data === "string") {
-          let response = JSON.parse(e.data);
-
-          if (response[2]) {
-            console.log(response);
-            this.props.dispatch(successTrades(response[2]));
-          }
-        }
-      };
-    }
-  }
-
-  requestTicker(connection) {
-    if (connection) {
-      connection.onerror = () => {
-        console.log("Connection Error");
-      };
-      connection.onopen = () => {
-        console.log("WebSocket connection Connected");
-
-        let msg = JSON.stringify({
-          event: "subscribe",
-          channel: "ticker",
-          pair: "tBTCUSD"
-        });
         connection.send(msg);
       };
 
@@ -141,44 +95,53 @@ class App extends React.Component {
 
           if (response[2]) {
             console.log(response);
-            this.props.dispatch(successTicker(response[2]));
+            cb(response);
           }
         }
       };
     }
   }
 
-  requestOrderBook(connection) {
-    if (connection) {
-      connection.onerror = () => {
-        console.log("Connection Error");
-      };
-      connection.onopen = () => {
-        console.log("WebSocket connection Connected");
+  requestTrades() {
+    let connection = this.newConnection();
+    let msgTrades = JSON.stringify({
+      event: "subscribe",
+      channel: "trades",
+      pair: "BTCUSD"
+    });
 
-        let msg = JSON.stringify({
-          event: "subscribe",
-          channel: "book",
-          pair: "tBTCUSD"
-        });
-        connection.send(msg);
-      };
+    this.handleConnectionResponse(connection, msgTrades, response =>
+      this.props.dispatch(successTrades(response[2]))
+    );
+  }
 
-      connection.onclose = () => {
-        console.log("WebSocket connection Closed");
-      };
+  requestTicker() {
+    let connection = this.newConnection();
+    let msgTicker = JSON.stringify({
+      event: "subscribe",
+      channel: "ticker",
+      pair: "tBTCUSD"
+    });
 
-      connection.onmessage = e => {
-        if (typeof e.data === "string") {
-          let response = JSON.parse(e.data);
+    this.handleConnectionResponse(connection, msgTicker, response =>
+      this.props.dispatch(successTicker(response[2]))
+    );
+  }
 
-          if (response[2]) {
-            console.log(response);
-            this.props.dispatch(successOrderBook(response[2]));
-          }
-        }
-      };
-    }
+  requestOrderBook() {
+    let connection = this.newConnection();
+    let msgOrderBook = JSON.stringify({
+      event: "subscribe",
+      channel: "book",
+      pair: "tBTCUSD",
+      prec: "P0",
+      freq: "F0",
+      len: 25
+    });
+
+    this.handleConnectionResponse(connection, msgOrderBook, response =>
+      this.props.dispatch(successOrderBook(response[2]))
+    );
   }
 
   render() {
