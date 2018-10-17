@@ -48,8 +48,11 @@ class App extends React.Component {
 
     socketConnected
       .then(connection => {
-        console.log(connection);
-        this.initiateSocketListeners(connection);
+        if (connection) {
+          // alert(JSON.stringify(connection));
+          console.log(connection);
+          this.initiateSocketListeners(connection);
+        }
       })
       .catch(err => {
         console.error(err);
@@ -81,9 +84,9 @@ class App extends React.Component {
           let response = JSON.parse(e.data);
 
           if (response[2]) {
-            // console.log(response);
+            console.log(response);
             console.log("Price:", response[2][3], "Quantity:", response[2][2]);
-            this.props.dispatch(successTrades([{ value: "Ascs" }]));
+            this.props.dispatch(successTrades(response[2]));
           }
         }
       };

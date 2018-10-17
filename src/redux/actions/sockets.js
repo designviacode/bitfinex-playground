@@ -23,12 +23,12 @@ export const initiateSocket = () => {
 };
 
 export const successfulSocket = connection => {
-  alert(JSON.stringify(connection));
+  console.log(JSON.stringify(connection));
   return dispatch =>
     dispatch({ type: typesForGlobal.SUCCESS_SOCKET, payload: connection });
 };
 
-const subscribeToTrades = (prec, symbol) => {
+export const subscribeToTrades = (prec, symbol) => {
   return (dispatch, getState) => {
     const subscriptionRequest = JSON.stringify({
       event: "subscribe",

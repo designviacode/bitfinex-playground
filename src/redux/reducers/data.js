@@ -52,7 +52,15 @@ const data = (state = initialState, { type, payload }) => {
         ticker: {
           ...state.ticker,
           isLoading: false,
-          results: [state.ticker.results, ...payload]
+          results: [
+            ...state.ticker.results,
+            {
+              id: payload[0],
+              tmstp: payload[1],
+              amount: payload[2],
+              price: payload[3]
+            }
+          ]
         }
       };
     case types.FAILURE_TICKER:
@@ -78,7 +86,15 @@ const data = (state = initialState, { type, payload }) => {
         trades: {
           ...state.trades,
           isLoading: false,
-          results: [state.trades.results, ...payload]
+          results: [
+            ...state.trades.results,
+            {
+              id: payload[0],
+              tmstp: payload[1],
+              amount: payload[2],
+              price: payload[3]
+            }
+          ]
         }
       };
     case types.FAILURE_TRADES:
@@ -104,7 +120,15 @@ const data = (state = initialState, { type, payload }) => {
         orderBook: {
           ...state.orderBook,
           isLoading: false,
-          results: [state.orderBook.results, ...payload]
+          results: [
+            ...state.orderBook.results,
+            {
+              id: payload[0],
+              tmstp: payload[1],
+              amount: payload[2],
+              price: payload[3]
+            }
+          ]
         }
       };
     case types.FAILURE_ORDER_BOOK:

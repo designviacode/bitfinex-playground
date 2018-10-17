@@ -1,6 +1,8 @@
 import React from "react";
 // LIBRARIES
 import cx from "classnames";
+// STORE - REDUX
+import { connect } from "react-redux";
 
 const Panel = props => (
   <div className="panel">
@@ -18,6 +20,15 @@ const Panel = props => (
         <button className="button--icon panel-button--mute">
           <i className={cx("icon", "ion-ios-move")} />
         </button>
+        <div
+          className={cx("connection-dot", {
+            online: props.socket.connected,
+            offline: !props.socket.connected
+          })}
+          title={
+            props.socket.connected ? "Connection Online" : "Connection Offline"
+          }
+        />
       </div>
     </div>
 
@@ -25,4 +36,7 @@ const Panel = props => (
   </div>
 );
 
-export default Panel;
+const mapStateToProps = ({ global }) => ({
+  socket: global.socket
+});
+export default connect(mapStateToProps)(Panel);

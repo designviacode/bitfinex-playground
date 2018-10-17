@@ -2,6 +2,7 @@ import React from "react";
 // LIBRARIES
 import PropTypes from "prop-types";
 import cx from "classnames";
+import moment from "moment";
 // STORE - REDUX
 import { connect } from "react-redux";
 // COMPONENTS
@@ -19,10 +20,11 @@ class OrderBook extends React.Component {
     );
   }
 
-  renderRow(row) {
+  renderRow(row, index) {
     return (
-      <tr>
+      <tr key={index}>
         <td>
+          <p>{JSON.stringify(row)}</p>
           <i
             className={cx("icon", {
               "ion-ios-arrow-round-up": true,
@@ -30,7 +32,7 @@ class OrderBook extends React.Component {
             })}
           />
         </td>
-        <td className="tc">01.07</td>
+        <td className="tc">{}</td>
         <td className="tr text-bright">$15.21</td>
         <td className="tr text-danger">-$1.13</td>
       </tr>
@@ -53,16 +55,18 @@ class OrderBook extends React.Component {
         <table className="table table-compact smaller mb-0">
           <thead>{this.renderHeader()}</thead>
           <tbody>
-            {props.isLoading && <div className="loading" />}
-            {!props.isLoading &&
+            {props.orderBook.isLoading && <div className="loading" />}
+            {!props.orderBook.isLoading &&
               props.orderBook &&
-              props.orderBook.length > 0 &&
-              props.orderBook.map((order, index) =>
+              props.orderBook.results.length > 0 &&
+              props.orderBook.results.map((order, index) =>
                 this.renderRow(order, index)
               )}
           </tbody>
         </table>
-        {!props.isLoading && props.orderBook.error && this.renderEmpty()}
+        {!props.orderBook.isLoading &&
+          props.orderBook.error &&
+          this.renderEmpty()}
       </Panel>
     );
   }

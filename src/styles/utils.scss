@@ -25,6 +25,53 @@ $off-white: rgba($secondary, 0.2);
 $spin-duration: 1s;
 $pulse-duration: 750ms;
 
+.loading {
+  border-radius: 50%;
+  width: $base-line-height;
+  height: $base-line-height;
+  border: 0.25rem solid $off-white;
+  border-top-color: $white;
+  animation: spin $spin-duration infinite linear;
+}
+
+.connection-dot {
+  width: 11px;
+  height: 11px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50%;
+  position: relative;
+  top: -5px;
+  right: -5px;
+  cursor: pointer;
+
+  &:before {
+    content: "";
+    position: relative;
+    display: block;
+    width: 400%;
+    height: 400%;
+    box-sizing: border-box;
+    margin-left: -150%;
+    margin-top: -150%;
+    border-radius: 100%;
+    background-color: rgb(170, 170, 170);
+    -webkit-animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1)
+      infinite;
+    animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  }
+
+  &.online {
+    background: rgb(57, 203, 88);
+    border-color: darken(rgb(57, 203, 88), 5%);
+  }
+
+  &.offline {
+    background: rgb(255, 31, 31);
+    border-color: darken(rgb(255, 31, 31), 5%);
+  }
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -33,11 +80,13 @@ $pulse-duration: 750ms;
     transform: rotate(360deg);
   }
 }
-.loading {
-  border-radius: 50%;
-  width: $base-line-height;
-  height: $base-line-height;
-  border: 0.25rem solid $off-white;
-  border-top-color: $white;
-  animation: spin $spin-duration infinite linear;
+@keyframes pulse-ring {
+  0% {
+    -webkit-transform: scale(0.33);
+    transform: scale(0.33);
+  }
+  80%,
+  to {
+    opacity: 0;
+  }
 }

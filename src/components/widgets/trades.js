@@ -2,6 +2,7 @@ import React from "react";
 // LIBRARIES
 import PropTypes from "prop-types";
 import cx from "classnames";
+import Moment from "react-moment";
 // STORE - REDUX
 import { connect } from "react-redux";
 // COMPONENTS
@@ -19,20 +20,24 @@ class Trades extends React.Component {
     );
   }
 
-  renderRow(row) {
+  renderRow(row, index) {
     return (
-      <tr>
+      <tr key={index}>
         <td>
           <i
             className={cx("icon", {
-              "ion-ios-arrow-round-up": true,
-              "ion-ios-arrow-round-down": false
+              "ion-ios-arrow-round-up": row.price,
+              "ion-ios-arrow-round-down": !row.price
             })}
           />
         </td>
-        <td className="tc">01.07</td>
-        <td className="tr text-bright">$15.21</td>
-        <td className="tr text-danger">-$1.13</td>
+        <td className="tc">
+          <Moment unix format="HH-mm:ss">
+            {row.tmstp}
+          </Moment>
+        </td>
+        <td className="tr text-danger">{row.price}</td>
+        <td className="tr">{row.amount}</td>
       </tr>
     );
   }
@@ -53,14 +58,18 @@ class Trades extends React.Component {
         <table className="table table-compact smaller mb-0">
           <thead>{this.renderHeader()}</thead>
           <tbody>
-            {props.isLoading && <div className="loading" />}
-            {!props.isLoading &&
+            {props.trades.isLoading && <div className="loading" />}
+            {!props.trades.isLoading &&
               props.trades &&
-              props.trades.length > 0 &&
-              props.trades.map((trade, index) => this.renderRow(trade, index))}
+              props.trades.results.length > 0 &&
+              props.trades.results.map((trade, index) =>
+                this.renderRow(trade, index)
+              )}
           </tbody>
         </table>
-        {!props.isLoading && props.trades.error && this.renderEmpty()}
+        {!props.trades.isLoading && props.trades.error && this.renderEmpty()}
+
+        <p>{JSON.stringify(props.trades)}</p>
       </Panel>
     );
   }
