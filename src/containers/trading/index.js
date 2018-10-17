@@ -1,16 +1,14 @@
 import React from "react";
 // LIBRARIES
 import Helmet from "react-helmet";
-import cx from "classnames";
 // STORE - REDUX
 import { connect } from "react-redux";
 // COMPONENTS
 import { Panel } from "../../components";
-import { HeroChart, Trades, Orders } from "../../components/widgets";
+import { HeroChart, Trades, OrderBook } from "../../components/widgets";
 
 class Trading extends React.Component {
   render() {
-    const { props } = this;
     const title = "Primary / Secondary Pair Price";
 
     return (
@@ -26,9 +24,9 @@ class Trading extends React.Component {
             </div>
 
             <div className="w-100 w-two-thirds-l">
-              <Orders />
+              <OrderBook />
             </div>
-            <div className="w-100 w-two-thirds-l">
+            <div className="w-100 w-third-l">
               <Trades />
             </div>
           </div>

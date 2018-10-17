@@ -5,11 +5,13 @@ class Sidebar extends React.Component {
     const items = [
       {
         icon: "ion-ios-home",
-        name: "Home"
+        name: "Home",
+        isActive: false // TODO: link this with router-location state from store
       },
       {
         icon: "ion-ios-trending-up",
-        name: "Trading"
+        name: "Trading",
+        isActive: true
       }
     ];
     return (
@@ -18,7 +20,11 @@ class Sidebar extends React.Component {
           {items &&
             items.map((item, index) => {
               return (
-                <li key={index} className="flex flex-row items-center">
+                <li
+                  key={index}
+                  className={`flex flex-row items-center ${item.isActive &&
+                    "active"}`}
+                >
                   <i className={`icon ${item.icon}`} />
                   <p className="text ttc">{item.name}</p>
                 </li>

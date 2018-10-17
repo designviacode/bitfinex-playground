@@ -1,4 +1,4 @@
-import React, { PropTypes } from "react";
+import React from "react";
 
 const Avatar = props => {
   const { source, altText, ...others } = props;

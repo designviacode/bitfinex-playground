@@ -1,5 +1,5 @@
 import HeroChart from "./heroChart";
 import Trades from "./trades";
-import Orders from "./orders";
+import OrderBook from "./orderBook";
 
-export { HeroChart, Trades, Orders };
+export { HeroChart, Trades, OrderBook };

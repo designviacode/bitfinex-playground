@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 // STORE - REDUCERS
 import global from "./global";
+import data from "./data";
 import ui from "./ui";
 
 /**
@@ -9,6 +10,7 @@ import ui from "./ui";
  */
 const rootReducer = combineReducers({
   global,
+  data,
   ui
 });
 

@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 // COMPONENTS
 import Panel from "../panel";
 
-class Trades extends React.Component {
+class OrderBook extends React.Component {
   renderHeader() {
     return (
       <tr>
@@ -40,7 +40,7 @@ class Trades extends React.Component {
   renderEmpty() {
     return (
       <div className="tc w-100 lh-copy">
-        <h3 className="font-secondary f3 fw5">No Trades to Display</h3>
+        <h3 className="font-secondary f3 fw5">No Orders to Display</h3>
       </div>
     );
   }
@@ -55,28 +55,30 @@ class Trades extends React.Component {
           <tbody>
             {props.isLoading && <div className="loading" />}
             {!props.isLoading &&
-              props.trades &&
-              props.trades.length > 0 &&
-              props.trades.map((trade, index) => this.renderRow(trade, index))}
+              props.orderBook &&
+              props.orderBook.length > 0 &&
+              props.orderBook.map((order, index) =>
+                this.renderRow(order, index)
+              )}
           </tbody>
         </table>
-        {!props.isLoading && props.trades.error && this.renderEmpty()}
+        {!props.isLoading && props.orderBook.error && this.renderEmpty()}
       </Panel>
     );
   }
 }
 
-Trades.propTypes = {
+OrderBook.propTypes = {
   title: PropTypes.string
 };
-Trades.defaultProps = {
-  title: "Trades"
+OrderBook.defaultProps = {
+  title: "Order Book"
 };
 const mapStateToProps = ({ global, data }) => ({
-  trades: data.trades
+  orderBook: data.orderBook
 });
 const mapDispatchToProps = dispatch => ({});
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Trades);
+)(OrderBook);

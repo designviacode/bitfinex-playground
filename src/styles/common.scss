@@ -6,6 +6,10 @@
   display: flex;
   flex-direction: column;
   flex: 1 auto;
+  background: $background-default;
+}
+.page-view {
+  padding: 2.5px 10px;
 }
 
 .app--container {

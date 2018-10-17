@@ -7,7 +7,6 @@
   align-items: center;
   text-align: center;
   padding: 10px;
-  margin-right: 10px;
   min-height: 100vh;
   z-index: 3;
 
@@ -22,7 +21,7 @@
     transition: 0.25s ease;
 
     .icon {
-      color: $primary;
+      color: #aaa;
       font-size: 30px;
     }
     .text {
@@ -31,10 +30,22 @@
       visibility: hidden;
       display: none;
     }
+    .icon,
+    .text {
+      transition: 0.25s ease;
+    }
 
     &:hover {
       i {
         transform: scale(1.025);
+        text-shadow: 0 2px 3px $primary;
+      }
+    }
+
+    &.active {
+      .icon,
+      .text {
+        color: $primary;
       }
     }
   }

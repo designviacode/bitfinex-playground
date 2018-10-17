@@ -1,10 +1,10 @@
-import React, { PropTypes } from "react";
+import React from "react";
 // COMPONENTS
 import Avatar from "./avatar";
 // CONFIG
 import Config from "../config";
 
-export default class Navbar extends React.Component {
+class Navbar extends React.Component {
   render() {
     return (
       <div className="navbar">
@@ -20,3 +20,4 @@ export default class Navbar extends React.Component {
 }
 
 Navbar.propTypes = {};
+export default Navbar;
