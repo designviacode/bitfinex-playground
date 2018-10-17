@@ -49,8 +49,16 @@
     .name {
       margin-top: 2px;
       margin-bottom: 5px;
+      color: #333;
       font-family: Montserrat;
-      font-weight: bold;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
+      color: #333;
+
+      span {
+        font-weight: 700;
+      }
     }
   }
 

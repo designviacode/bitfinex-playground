@@ -1,6 +1,7 @@
 .sidebar {
   position: relative;
   background: rgb(44, 57, 64);
+  background: $dark;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,9 +9,10 @@
   padding: 10px;
   margin-right: 10px;
   min-height: 100vh;
+  z-index: 3;
 
   ul {
-    margin-top: 75px;
+    margin-top: 20px;
   }
 
   li {

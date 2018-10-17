@@ -1,0 +1,13 @@
+.navbar {
+  padding: 10px 15px;
+  padding-left: 100px;
+  background: $dark;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .avatar {
+    height: 50px;
+    width: 50px;
+  }
+}

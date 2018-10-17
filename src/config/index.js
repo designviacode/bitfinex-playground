@@ -11,7 +11,8 @@ const configs = {
     platformName: "BitFinex",
     platformUrl: "bitfinex.com",
     platformFavicon: "",
-    platformLogo: "",
+    platformLogo:
+      "https://www.bitfinex.com/assets/logo3-dark-theme-90276da89b3131461fd422756694de9bf75895deee13e02809682be956e229ff.svg",
     platformLogoWhite: "",
     baseUrl: process.env.WEB_APPLICATION_URL,
     apiUrl: process.env.API_URL,

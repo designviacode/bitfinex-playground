@@ -7,7 +7,10 @@ const Panel = props => (
     <div className="panel--header">
       <div className="user-information flex-auto">
         <div className="name-status">
-          <p className="name">{props.name}</p>
+          <p className="name">
+            <span>{props.name && props.name.slice(0, 3)}</span>
+            {props.name.slice(3, props.name.length)}
+          </p>
         </div>
       </div>
 

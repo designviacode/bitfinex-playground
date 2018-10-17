@@ -2,6 +2,7 @@ import React from "react";
 // CONTAINERS
 import Trading from "../trading";
 // COMPONENTS
+import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 // LIBRARIES
 // import io from "socket.io-client";
@@ -82,9 +83,13 @@ class App extends React.Component {
   render() {
     return (
       <div className="platform">
-        <Sidebar />
-        <div className="app--container">
-          <Trading />
+        <Navbar />
+
+        <div className="flex flex-row">
+          <Sidebar />
+          <div className="app--container">
+            <Trading />
+          </div>
         </div>
 
         <div className="app--background" />
