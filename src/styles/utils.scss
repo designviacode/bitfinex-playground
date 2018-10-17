@@ -72,6 +72,17 @@ $pulse-duration: 750ms;
   }
 }
 
+i.up,
+i.down {
+  font-size: 25px;
+}
+i.up {
+  color: rgb(57, 203, 88);
+}
+i.down {
+  color: rgb(255, 31, 31);
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

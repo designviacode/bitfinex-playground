@@ -94,6 +94,8 @@
   }
 
   &--content {
+    margin: 15px 0 20px;
     padding: 10px 20px;
+    overflow-y: auto;
   }
 }

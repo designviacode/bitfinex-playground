@@ -27,8 +27,8 @@ class OrderBook extends React.Component {
           <p>{JSON.stringify(row)}</p>
           <i
             className={cx("icon", {
-              "ion-ios-arrow-round-up": true,
-              "ion-ios-arrow-round-down": false
+              "ion-md-arrow-round-up": true,
+              "ion-md-arrow-round-down": false
             })}
           />
         </td>
@@ -55,7 +55,6 @@ class OrderBook extends React.Component {
         <table className="table table-compact smaller mb-0">
           <thead>{this.renderHeader()}</thead>
           <tbody>
-            {props.orderBook.isLoading && <div className="loading" />}
             {!props.orderBook.isLoading &&
               props.orderBook &&
               props.orderBook.results.length > 0 &&
@@ -64,6 +63,12 @@ class OrderBook extends React.Component {
               )}
           </tbody>
         </table>
+
+        {props.orderBook.isLoading && (
+          <div className="w-100 tc flex items-center" style={{ height: 150 }}>
+            <div className="loading center" />
+          </div>
+        )}
         {!props.orderBook.isLoading &&
           props.orderBook.error &&
           this.renderEmpty()}

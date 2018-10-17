@@ -22,12 +22,15 @@ class Trades extends React.Component {
 
   renderRow(row, index) {
     return (
-      <tr key={index}>
+      <tr
+        key={index}
+        className={Math.sign(row.amount) === 1 ? "positive" : "negative"}
+      >
         <td>
           <i
             className={cx("icon", {
-              "ion-ios-arrow-round-up": row.price,
-              "ion-ios-arrow-round-down": !row.price
+              "up ion-md-arrow-round-up": row.price,
+              "down ion-md-arrow-round-down": !row.price
             })}
           />
         </td>
@@ -58,7 +61,6 @@ class Trades extends React.Component {
         <table className="table table-compact smaller mb-0">
           <thead>{this.renderHeader()}</thead>
           <tbody>
-            {props.trades.isLoading && <div className="loading" />}
             {!props.trades.isLoading &&
               props.trades &&
               props.trades.results.length > 0 &&
@@ -67,9 +69,13 @@ class Trades extends React.Component {
               )}
           </tbody>
         </table>
-        {!props.trades.isLoading && props.trades.error && this.renderEmpty()}
 
-        <p>{JSON.stringify(props.trades)}</p>
+        {props.trades.isLoading && (
+          <div className="w-100 tc flex items-center" style={{ height: 150 }}>
+            <div className="loading center" />
+          </div>
+        )}
+        {!props.trades.isLoading && props.trades.error && this.renderEmpty()}
       </Panel>
     );
   }

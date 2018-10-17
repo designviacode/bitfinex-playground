@@ -2,7 +2,12 @@ import React from "react";
 // STORE - REDUX
 import { connect } from "react-redux";
 import { initiateSocket, successfulSocket } from "../../redux/actions/sockets";
-import { successTrades } from "../../redux/actions/data";
+import {
+  requestAll,
+  successTrades,
+  successTicker,
+  successOrderBook
+} from "../../redux/actions/data";
 // CONTAINERS
 import Trading from "../trading";
 // COMPONENTS
@@ -20,6 +25,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.initSocket();
+    this.props.dispatch(requestAll());
   }
 
   componentWillUnmount() {
@@ -61,22 +67,39 @@ class App extends React.Component {
 
   initiateSocketListeners(connection) {
     if (connection) {
+      this.requestTrades(connection);
+    }
+  }
+
+  requestTrades(connection) {
+    if (connection) {
       connection.onerror = () => {
         console.log("Connection Error");
       };
       connection.onopen = () => {
-        console.log("WebSocket this.state.socketConnection Connected");
+        console.log("WebSocket connection Connected");
 
-        let msg = JSON.stringify({
+        let msgTrades = JSON.stringify({
           event: "subscribe",
           channel: "trades",
           pair: "BTCUSD"
         });
-        connection.send(msg);
+        let msgTicker = JSON.stringify({
+          event: "subscribe",
+          channel: "ticker",
+          pair: "tBTCUSD"
+        });
+        let msgOrderBook = JSON.stringify({
+          event: "subscribe",
+          channel: "book",
+          pair: "tBTCUSD"
+        });
+
+        connection.send(msgTrades);
       };
 
       connection.onclose = () => {
-        console.log("echo-protocol this.state.socketConnection Closed");
+        console.log("WebSocket connection Closed");
       };
 
       connection.onmessage = e => {
@@ -85,8 +108,73 @@ class App extends React.Component {
 
           if (response[2]) {
             console.log(response);
-            console.log("Price:", response[2][3], "Quantity:", response[2][2]);
             this.props.dispatch(successTrades(response[2]));
+          }
+        }
+      };
+    }
+  }
+
+  requestTicker(connection) {
+    if (connection) {
+      connection.onerror = () => {
+        console.log("Connection Error");
+      };
+      connection.onopen = () => {
+        console.log("WebSocket connection Connected");
+
+        let msg = JSON.stringify({
+          event: "subscribe",
+          channel: "ticker",
+          pair: "tBTCUSD"
+        });
+        connection.send(msg);
+      };
+
+      connection.onclose = () => {
+        console.log("WebSocket connection Closed");
+      };
+
+      connection.onmessage = e => {
+        if (typeof e.data === "string") {
+          let response = JSON.parse(e.data);
+
+          if (response[2]) {
+            console.log(response);
+            this.props.dispatch(successTicker(response[2]));
+          }
+        }
+      };
+    }
+  }
+
+  requestOrderBook(connection) {
+    if (connection) {
+      connection.onerror = () => {
+        console.log("Connection Error");
+      };
+      connection.onopen = () => {
+        console.log("WebSocket connection Connected");
+
+        let msg = JSON.stringify({
+          event: "subscribe",
+          channel: "book",
+          pair: "tBTCUSD"
+        });
+        connection.send(msg);
+      };
+
+      connection.onclose = () => {
+        console.log("WebSocket connection Closed");
+      };
+
+      connection.onmessage = e => {
+        if (typeof e.data === "string") {
+          let response = JSON.parse(e.data);
+
+          if (response[2]) {
+            console.log(response);
+            this.props.dispatch(successOrderBook(response[2]));
           }
         }
       };
