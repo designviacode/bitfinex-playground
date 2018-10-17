@@ -1,0 +1,34 @@
+table {
+  border-collapse: collapse;
+}
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: left;
+
+  &.smaller {
+    font-size: 0.72rem;
+  }
+
+  thead th {
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+    text-transform: uppercase;
+    font-family: Montserrat;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+  }
+
+  td {
+    border-color: rgba(159, 172, 199, 0.12);
+  }
+  &.table-compact th,
+  &.table-compact td {
+    padding: 0.3rem 0.45rem;
+  }
+}
+
+.text-faded {
+  color: rgba(90, 99, 126, 0.49);
+}

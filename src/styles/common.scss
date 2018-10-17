@@ -1,0 +1,23 @@
+.platform {
+  display: flex;
+  flex-direction: row;
+  flex: 1 auto;
+}
+
+.app--container {
+  display: flex;
+  flex-direction: row;
+  flex: 1 auto;
+}
+.app--background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.page-view {
+  width: 100%;
+}

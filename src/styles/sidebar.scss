@@ -1,0 +1,49 @@
+.sidebar {
+  position: relative;
+  background: rgb(44, 57, 64);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  margin-right: 10px;
+  min-height: 100vh;
+
+  ul {
+    margin-top: 75px;
+  }
+
+  li {
+    cursor: pointer;
+    padding: 10px 15px;
+    opacity: 1;
+    transition: 0.25s ease;
+
+    .icon {
+      color: $primary;
+      font-size: 30px;
+    }
+    .text {
+      opacity: 0;
+      transform: translateY(0);
+      visibility: hidden;
+      display: none;
+    }
+
+    &:hover {
+      i {
+        transform: scale(1.025);
+      }
+    }
+  }
+
+  &--open {
+    li {
+      .text {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+    }
+  }
+}
